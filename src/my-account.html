@@ -1,7 +1,7 @@
 <!-- Load the Polymer.Element base class -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../bower_components/paper-progress-button/paper-progress-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-account">
@@ -19,25 +19,9 @@
         <h1>Account admin</h1>
 
         <form>
-            <label>
-                Full name
-                <input type="text" required>
-            </label>
-            <label>
-                E-mail
-                <input type="email" required>
-            </label>
-            <label>
-                Age
-                <input type="number" min="16" max="67" required maxlength="2">
-            </label>
-            <paper-checkbox>Ready to rock the L1NDA way!?</paper-checkbox>
-            <paper-progress-button
-                active-text="Save"
-                inactive-text="Saving..."
-                raised
-            >
-            </paper-progress-button>
+            <paper-input label="Full name"></paper-input>
+            <paper-input label="E-mail" type="email"></paper-input>
+            <paper-button raised>Save</paper-button>
         </form>
     </div>
   </template>
