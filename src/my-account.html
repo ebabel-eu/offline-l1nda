@@ -1,5 +1,7 @@
 <!-- Load the Polymer.Element base class -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-progress-button/paper-progress-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-account">
@@ -29,7 +31,13 @@
                 Age
                 <input type="number" min="16" max="67" required maxlength="2">
             </label>
-            <button>Save</button>
+            <paper-checkbox>Ready to rock the L1NDA way!?</paper-checkbox>
+            <paper-progress-button
+                active-text="Save"
+                inactive-text="Saving..."
+                raised
+            >
+            </paper-progress-button>
         </form>
     </div>
   </template>
