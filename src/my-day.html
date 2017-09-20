@@ -11,7 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view3">
+<dom-module id="my-day">
   <template>
     <style include="shared-styles">
       :host {
@@ -22,45 +22,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
-      <h1>September</h1>
+      <h1>Friday</h1>
       <ul>
-        <li>1st
-          <ul>
-            <li>shift 1</li>
-            <li>shift 2</li>
-            <li>shift 3</li>
-          </ul>
-        </li>
-        <li>2nd
-          <ul>
-            <li>shift 1</li>
-            <li>shift 2</li>
-            <li>shift 3</li>
-          </ul>
-        </li>
-        <li>3rd
-          <ul>
-            <li>shift 1</li>
-            <li>shift 2</li>
-            <li>shift 3</li>
-          </ul>
-        </li>
-        <li>4th
-          <ul>
-            <li>shift 1</li>
-            <li>shift 2</li>
-            <li>shift 3</li>
-          </ul>
-        </li>
+        <li>shift 1</li>
+        <li>shift 2</li>
+        <li>shift 3</li>
       </ul>
     </div>
+
   </template>
 
   <script>
-    class MyView3 extends Polymer.Element {
-      static get is() { return 'my-view3'; }
+    class MyDay extends Polymer.Element {
+      static get is() { return 'my-day'; }
     }
 
-    window.customElements.define(MyView3.is, MyView3);
+    window.customElements.define(MyDay.is, MyDay);
   </script>
 </dom-module>

@@ -1,0 +1,50 @@
+[debug] [2017-09-20T10:24:30.754Z] ----------------------------------------------------------------------
+[debug] [2017-09-20T10:24:30.756Z] Command:       /usr/bin/nodejs /usr/bin/firebase deploy
+[debug] [2017-09-20T10:24:30.756Z] CLI Version:   3.12.0
+[debug] [2017-09-20T10:24:30.756Z] Platform:      linux
+[debug] [2017-09-20T10:24:30.756Z] Node Version:  v6.11.0
+[debug] [2017-09-20T10:24:30.757Z] Time:          Wed Sep 20 2017 12:24:30 GMT+0200 (CEST)
+[debug] [2017-09-20T10:24:30.757Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-09-20T10:24:30.768Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-09-20T10:24:30.768Z] > authorizing via signed-in user
+[debug] [2017-09-20T10:24:30.770Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-09-20T10:24:30.771Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/eBPMNTtazw4AwvBkBn5-9VQ02TSuKk2J3M-96G2KQZg2hp7akBBbfkbphvT1Jq3y',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Sep 20 2017 12:24:30 GMT+0200 (CEST)
+[debug] [2017-09-20T10:24:31.045Z] <<< HTTP RESPONSE 200
+[debug] [2017-09-20T10:24:31.055Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/polymer-starter-kit-70550  
+ Wed Sep 20 2017 12:24:31 GMT+0200 (CEST)
+[debug] [2017-09-20T10:24:31.979Z] <<< HTTP RESPONSE 200
+[debug] [2017-09-20T10:24:31.983Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/polymer-starter-kit-70550/tokens  
+ Wed Sep 20 2017 12:24:31 GMT+0200 (CEST)
+[debug] [2017-09-20T10:24:32.797Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'polymer-starter-kit-70550'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing build/es5-bundled/ directory for upload...
+[debug] [2017-09-20T10:24:34.409Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/polymer-starter-kit-70550/uploads/-KuToKjnaYWcteOPh_-x?fileCount=26&message=  
+ Wed Sep 20 2017 12:24:34 GMT+0200 (CEST)
+[debug] [2017-09-20T10:24:39.158Z] <<< HTTP RESPONSE 200
+[debug] [2017-09-20T10:24:39.161Z] [hosting] .tgz uploaded successfully, waiting for extraction
+[error] 
+[error] Error: File upload failed: Deploy failed.
+[debug] [2017-09-20T10:25:44.124Z] Error Context: {
+  "duration": 65670,
+  "fileCount": 26,
+  "ip": "213.127.200.98",
+  "start": 1505903078245,
+  "status": "failed",
+  "statusMessage": "Deploy failed.",
+  "uid": "107241553195558536765",
+  "uploadedCount": 26,
+  "user": {
+    "email": "hello@ebabel.eu",
+    "gaiaId": "107241553195558536765",
+    "image": "https://lh5.googleusercontent.com/-5LhpOSpojtQ/AAAAAAAAAAI/AAAAAAAABmw/LxE0E9m4vhA/photo.jpg"
+  }
+}
