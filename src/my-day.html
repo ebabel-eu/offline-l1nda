@@ -11,6 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
 
+<link rel="import" href="l1nda-shift.html">
+
 <dom-module id="my-day">
   <template>
     <style include="shared-styles">
@@ -23,11 +25,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Friday</h1>
-      <ul>
-        <li>shift 1</li>
-        <li>shift 2</li>
-        <li>shift 3</li>
-      </ul>
+      <l1nda-shift
+        start-time="08:45"
+        end-time="18:15"
+        title="Susanne (kitchen)"
+      ></l1nda-shift>
+      <l1nda-shift
+        start-time="09:30"
+        end-time="17:45"
+        title="Remy (reception)"
+      ></l1nda-shift>
+      <l1nda-shift
+        start-time="09:15"
+        end-time="18:00"
+        title="Richard (workshop)"
+      ></l1nda-shift>
+      <l1nda-shift
+        start-time="07:48"
+        end-time="16:29"
+        title="Nadjib (garden)"
+      ></l1nda-shift>
     </div>
 
   </template>

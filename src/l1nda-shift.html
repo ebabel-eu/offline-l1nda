@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="l1nda-shift">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+
+      .shift {
+        border-radius: 6px;
+        padding: 2px 6px;
+        background-color: rgba(203, 125, 169, .25);
+        color: #460429;
+        font-size: 13px;
+      }
+
+      .start-time,
+      .end-time {
+        font-weight: bold;
+      }
+    </style>
+
+    <div class="shift">
+      <span class="start-time">[[startTime]]</span> -
+      <span class="end-time">[[endTime]]</span>
+      <span class="title">[[title]]</span>
+    </div>
+  </template>
+  <script>
+    class L1ndaShift extends Polymer.Element {
+      static get is() { return 'l1nda-shift'; }
+      static get properties() {
+        return {
+          title: {
+            type: String
+          },
+          startTime: {
+            type: String
+          },
+          endTime: {
+            type: String
+          }
+        }
+      }
+      constructor() {
+        super();
+      }
+    }
+    customElements.define(L1ndaShift.is, L1ndaShift);
+  </script>
+</dom-module>
