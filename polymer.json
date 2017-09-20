@@ -5,7 +5,6 @@
     "src/my-day.html",
     "src/my-week.html",
     "src/my-month.html",
-    "src/my-account.html",
     "src/my-error404.html"
   ],
   "sources": [
