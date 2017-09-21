@@ -52,6 +52,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class MyDay extends Polymer.Element {
       static get is() { return 'my-day'; }
+      static get properties() {
+        return {
+          shifts: {
+            type: Array
+          }
+        }
+      }
+
+      constructor() {
+        super();
+
+        console.log(this.shifts);
+      }
     }
 
     window.customElements.define(MyDay.is, MyDay);
