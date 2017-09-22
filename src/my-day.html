@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/src/elements/dom-repeat.html">
 <link rel="import" href="shared-styles.html">
 
 <link rel="import" href="l1nda-shift.html">
@@ -25,6 +26,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Friday</h1>
+      <template is="dom-repeat" items="[[shifts]]">
+        <l1nda-shift
+          start-time="08:45"
+          end-time="18:15"
+          shift-title={{item}}
+        ></l1nda-shift>
+      </template>
+
       <l1nda-shift
         start-time="08:45"
         end-time="18:15"
@@ -52,18 +61,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class MyDay extends Polymer.Element {
       static get is() { return 'my-day'; }
-      static get properties() {
-        return {
-          shifts: {
-            type: Array
-          }
-        }
-      }
 
       constructor() {
         super();
 
-        console.log(this.shifts);
+        this.shifts = [ 'hello', 'world' ];
+        // todo: more on this, read https://www.polymer-project.org/2.0/docs/devguide/model-data
+        // and https://www.polymer-project.org/2.0/docs/devguide/data-system
       }
     }
 
