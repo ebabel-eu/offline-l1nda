@@ -26,34 +26,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Friday</h1>
+
+      <form>
+        <fieldset>
+          <legend>New Shift</legend>
+          <input type="text" name="shiftTitleInput" />
+          <select name="startTimeSelect">
+            <option></option>
+          </select>
+          <select name="endTimeSelect">
+            <option></option>
+          </select>
+          <button>Add</button>
+        </fieldset>
+      </form>
+
       <template is="dom-repeat" items="[[shifts]]">
         <l1nda-shift
-          start-time="08:45"
-          end-time="18:15"
-          shift-title={{item}}
+          start-time={{item.startTime}}
+          end-time={{item.endTime}}
+          shift-title={{item.shiftTitle}}
         ></l1nda-shift>
       </template>
-
-      <l1nda-shift
-        start-time="08:45"
-        end-time="18:15"
-        shift-title="Susanne (kitchen)"
-      ></l1nda-shift>
-      <l1nda-shift
-        start-time="09:30"
-        end-time="17:45"
-        shift-title="Remy (reception)"
-      ></l1nda-shift>
-      <l1nda-shift
-        start-time="09:15"
-        end-time="18:00"
-        shift-title="Richard (workshop)"
-      ></l1nda-shift>
-      <l1nda-shift
-        start-time="07:48"
-        end-time="16:29"
-        shift-title="Nadjib (garden)"
-      ></l1nda-shift>
     </div>
 
   </template>
@@ -65,7 +59,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       constructor() {
         super();
 
-        this.shifts = [ 'hello', 'world' ];
+        this.shifts = [
+          { startTime: '08:45', endTime: '18:15', shiftTitle: 'Susanne (control room)' },
+          { startTime: '09:00', endTime: '17:45', shiftTitle: 'Remy (flight desk)' },
+          { startTime: '09:15', endTime: '18:00', shiftTitle: 'Richard (missile launcher)' },
+          { startTime: '07:48', endTime: '16:29', shiftTitle: 'Nadjib (hyperdrive)' },
+        ];
         // todo: more on this, read https://www.polymer-project.org/2.0/docs/devguide/model-data
         // and https://www.polymer-project.org/2.0/docs/devguide/data-system
       }
