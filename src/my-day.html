@@ -9,10 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/polymer/src/elements/dom-repeat.html">
-<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-progress-button/paper-progress-button.html">
 
+<link rel="import" href="shared-styles.html">
 <link rel="import" href="l1nda-shift.html">
+<link rel="import" href="l1nda-dropdown.html">
 
 <dom-module id="my-day">
   <template>
@@ -26,21 +27,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Friday</h1>
-
-      <form>
-        <fieldset>
-          <legend>New Shift</legend>
-          <input type="text" name="shiftTitleInput" />
-          <select name="startTimeSelect">
-            <option></option>
-          </select>
-          <select name="endTimeSelect">
-            <option></option>
-          </select>
-          <button>Add</button>
-        </fieldset>
-      </form>
-
       <template is="dom-repeat" items="[[shifts]]">
         <l1nda-shift
           start-time={{item.startTime}}
@@ -48,6 +34,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           shift-title={{item.shiftTitle}}
         ></l1nda-shift>
       </template>
+
+      <form>
+        <l1nda-dropdown label-string="Start" items-array="[[startTimes]]">
+        </l1nda-dropdown>
+        <l1nda-dropdown label-string="End" items-array="[[endTimes]]">
+        </l1nda-dropdown>
+        <l1nda-dropdown label-string="Employee" items-array="[[employees]]">
+        </l1nda-dropdown>
+        <l1nda-dropdown label-string="Layer" items-array="[[layers]]">
+        </l1nda-dropdown>
+    
+        <paper-progress-button
+          active="[[active]]"
+          active-text="Add"
+          inactive-text="Adding..."
+          raised
+        >
+        </paper-progress-button>
+      </form>
     </div>
 
   </template>
@@ -61,12 +66,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         this.shifts = [
           { startTime: '08:45', endTime: '18:15', shiftTitle: 'Susanne (control room)' },
-          { startTime: '09:00', endTime: '17:45', shiftTitle: 'Remy (flight desk)' },
+          { startTime: '09:00', endTime: '17:45', shiftTitle: 'Remy (flight deck)' },
           { startTime: '09:15', endTime: '18:00', shiftTitle: 'Richard (missile launcher)' },
-          { startTime: '07:48', endTime: '16:29', shiftTitle: 'Nadjib (hyperdrive)' },
+          { startTime: '07:45', endTime: '16:30', shiftTitle: 'Nadjib (hyperdrive)' },
         ];
-        // todo: more on this, read https://www.polymer-project.org/2.0/docs/devguide/model-data
-        // and https://www.polymer-project.org/2.0/docs/devguide/data-system
+
+        this.startTimes = [ '07:45', '08:00', '08:15', '08:30', '08:45', '09:00', '09:15', '09:30' ];
+        this.endTimes = [ '16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15' ];
+        this.employees = [ 'Susanne', 'Remy', 'Richard', 'Nadjib' ];
+        this.layers = [ 'Control room', 'Flight deck', 'Missile launcher', 'Hyperdrive' ];
       }
     }
 
