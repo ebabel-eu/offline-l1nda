@@ -16,16 +16,16 @@
         line-height: 2em;
       }
 
-      .start-time,
-      .end-time {
+      .start,
+      .end {
         font-weight: bold;
       }
     </style>
 
     <div class="shift">
-      <span class="start-time">[[startTime]]</span> -
-      <span class="end-time">[[endTime]]</span>
-      <span class="shift-title">[[shiftTitle]]</span>
+      <span class="start">[[start]]</span> -
+      <span class="end">[[end]]</span>
+      <span>[[employee]] ([[layer]])</span>
     </div>
   </template>
   <script>
@@ -33,15 +33,18 @@
       static get is() { return 'l1nda-shift'; }
       static get properties() {
         return {
-          shiftTitle: {
-            type: String
+          start: {
+            type: String,
           },
-          startTime: {
-            type: String
+          end: {
+            type: String,
           },
-          endTime: {
-            type: String
-          }
+          employee: {
+            type: String,
+          },
+          layer: {
+            type: String,
+          },
         }
       }
       constructor() {

@@ -11,9 +11,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-progress-button/paper-progress-button.html">
 
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="l1nda-shift.html">
-<link rel="import" href="l1nda-dropdown.html">
 
 <dom-module id="l1nda-schedule">
   <template>
@@ -29,9 +34,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template is="dom-if" if=[[shifts]]>
         <template is="dom-repeat" items="[[shifts]]">
           <l1nda-shift
-            start-time={{item.startTime}}
-            end-time={{item.endTime}}
-            shift-title={{item.shiftTitle}}
+            start={{item.start}}
+            end={{item.end}}
+            employee={{item.employee}}
+            layer={{item.layer}}
           ></l1nda-shift>
         </template>
       </template>
@@ -42,14 +48,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
 
       <form>
-        <l1nda-dropdown label-string="Start" items-array="[[startTimes]]">
-        </l1nda-dropdown>
-        <l1nda-dropdown label-string="End" items-array="[[endTimes]]">
-        </l1nda-dropdown>
-        <l1nda-dropdown label-string="Employee" items-array="[[employees]]">
-        </l1nda-dropdown>
-        <l1nda-dropdown label-string="Layer" items-array="[[layers]]">
-        </l1nda-dropdown>
+        <paper-dropdown-menu label="Start">
+          <paper-listbox
+            slot="dropdown-content"
+            on-selected-changed="onSelectDropdown"
+          >
+            <template is="dom-repeat" items=[[startTimes]]>
+              <paper-item>{{item}}</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu label="End">
+          <paper-listbox
+            slot="dropdown-content"
+            on-selected-changed="onSelectDropdown"
+          >
+            <template is="dom-repeat" items=[[endTimes]]>
+              <paper-item>{{item}}</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu label="Employee">
+          <paper-listbox
+            slot="dropdown-content"
+            on-selected-changed="onSelectDropdown"
+          >
+            <template is="dom-repeat" items=[[employees]]>
+              <paper-item>{{item}}</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+        <paper-dropdown-menu label="Layer">
+          <paper-listbox
+            slot="dropdown-content"
+            on-selected-changed="onSelectDropdown"
+          >
+            <template is="dom-repeat" items=[[layers]]>
+              <paper-item>{{item}}</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
     
         <paper-progress-button
           active="[[active]]"
@@ -57,6 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           inactive-text="Adding..."
           raised
           on-click="handleClick"
+          style="margin: 20px 0 20px -5px;"
         >
         </paper-progress-button>
       </form>
@@ -70,10 +112,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       handleClick() {
         this.active = false;
+
+        setTimeout(() => {
+          this.push('shifts', this.shift);
+          localStorage['shifts'] = JSON.stringify(this.shifts);
+          this.active = true;
+        }, 250);
+      }
+
+      onSelectDropdown(e) {
+        const label = e.target.parentNode.label.toLowerCase();
+        const value = e.target.selectedItems[0].textContent;
+
+        this.shift[label] = value;
       }
 
       constructor() {
         super();
+
+        this.shift = {};
 
         this.active = true;
 
