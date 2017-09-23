@@ -27,12 +27,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Friday</h1>
-      <template is="dom-repeat" items="[[shifts]]">
-        <l1nda-shift
-          start-time={{item.startTime}}
-          end-time={{item.endTime}}
-          shift-title={{item.shiftTitle}}
-        ></l1nda-shift>
+      <template is="dom-if" if=[[shifts]]>
+        <template is="dom-repeat" items="[[shifts]]">
+          <l1nda-shift
+            start-time={{item.startTime}}
+            end-time={{item.endTime}}
+            shift-title={{item.shiftTitle}}
+          ></l1nda-shift>
+        </template>
+      </template>
+
+      <template is="dom-if" if=[[!shifts]]>
+        <h2>No shift yet.</h2>
+        <p>Add them with the form below, please.</p>
       </template>
 
       <form>
@@ -64,17 +71,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       constructor() {
         super();
 
-        this.shifts = [
-          { startTime: '08:45', endTime: '18:15', shiftTitle: 'Susanne (control room)' },
-          { startTime: '09:00', endTime: '17:45', shiftTitle: 'Remy (flight deck)' },
-          { startTime: '09:15', endTime: '18:00', shiftTitle: 'Richard (missile launcher)' },
-          { startTime: '07:45', endTime: '16:30', shiftTitle: 'Nadjib (hyperdrive)' },
-        ];
+        this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
+          || null;
 
-        this.startTimes = [ '07:45', '08:00', '08:15', '08:30', '08:45', '09:00', '09:15', '09:30' ];
-        this.endTimes = [ '16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15' ];
-        this.employees = [ 'Susanne', 'Remy', 'Richard', 'Nadjib' ];
-        this.layers = [ 'Control room', 'Flight deck', 'Missile launcher', 'Hyperdrive' ];
+        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes'])
+          || [ '07:45', '08:00', '08:15', '08:30', '08:45', '09:00', '09:15', '09:30' ];
+
+        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes'])
+          || [ '16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15' ];
+
+        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees'])
+          || [ 'Susanne', 'Remy', 'Richard', 'Nadjib', 'Alson', 'Wouter', 'Tim' ].sort();
+
+        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers'])
+          || [ 'Cryostasis', 'Cyberspace', 'Dystopia', 'Homeworld', 'Hyperdrive', 'Multiverse', 'Spaceship' ];
       }
     }
 
