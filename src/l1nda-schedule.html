@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="l1nda-shift.html">
 <link rel="import" href="l1nda-dropdown.html">
 
-<dom-module id="my-day">
+<dom-module id="l1nda-schedule">
   <template>
     <style include="shared-styles">
       :host {
@@ -65,8 +65,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class MyDay extends Polymer.Element {
-      static get is() { return 'my-day'; }
+    class L1ndaSchedule extends Polymer.Element {
+      static get is() { return 'l1nda-schedule'; }
 
       constructor() {
         super();
@@ -74,20 +74,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
           || null;
 
-        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes'])
-          || [ '07:45', '08:00', '08:15', '08:30', '08:45', '09:00', '09:15', '09:30' ];
+        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
+          || [ '07:45', '08:00', '08:15', '08:30', '08:45', '09:00', '09:15', '09:30' ].sort();
 
-        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes'])
-          || [ '16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15' ];
+        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
+          || [ '16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15' ].sort();
 
-        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees'])
+        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
           || [ 'Susanne', 'Remy', 'Richard', 'Nadjib', 'Alson', 'Wouter', 'Tim', 'Rick', 'Linden', 'Masinde', 'Todd', 'Jochem' ].sort();
 
-        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers'])
-          || [ 'Cryostasis', 'Cyberspace', 'Dystopia', 'Homeworld', 'Hyperdrive', 'Multiverse', 'Spaceship' ];
+        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
+          || [ 'Cryostasis', 'Cyberspace', 'Dystopia', 'Homeworld', 'Hyperdrive', 'Multiverse', 'Spaceship' ].sort();
       }
     }
 
-    window.customElements.define(MyDay.is, MyDay);
+    window.customElements.define(L1ndaSchedule.is, L1ndaSchedule);
   </script>
 </dom-module>

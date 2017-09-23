@@ -20,14 +20,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="my-icons.html">
+<link rel="import" href="l1nda-icons.html">
 
-<link rel="lazy-import" href="my-day.html">
-<link rel="lazy-import" href="my-week.html">
-<link rel="lazy-import" href="my-month.html">
-<link rel="lazy-import" href="my-error404.html">
+<link rel="lazy-import" href="l1nda-schedule.html">
+<link rel="lazy-import" href="l1nda-error404.html">
 
-<dom-module id="my-app">
+<dom-module id="l1nda-app">
   <template>
     <style>
       :host {
@@ -68,6 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list a.iron-selected {
         color: var(--app-dark-color);
         font-weight: bold;
+        outline: none;
       }
     </style>
 
@@ -81,11 +80,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed narrow="{{narrow}}">
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-        <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="day" href="[[rootPath]]day">Day</a>
-          <a name="week" href="[[rootPath]]week">Week</a>
-          <a name="month" href="[[rootPath]]month">Month</a>
+          <a name="schedule" href="[[rootPath]]schedule">Schedule</a>
         </iron-selector>
       </app-drawer>
 
@@ -94,7 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button icon="l1nda-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>L1NDA</div>
           </app-toolbar>
         </app-header>
@@ -104,18 +100,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="error404"
             role="main">
-          <my-day name="day"></my-day>
-          <my-week name="week"></my-week>
-          <my-month name="month"></my-month>
-          <my-error404 name="error404"></my-error404>
+          <l1nda-schedule name="schedule"></l1nda-schedule>
+          <l1nda-error404 name="error404"></l1nda-error404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
   </template>
 
   <script>
-    class MyApp extends Polymer.Element {
-      static get is() { return 'my-app'; }
+    class L1ndaApp extends Polymer.Element {
+      static get is() { return 'l1nda-app'; }
 
       static get properties() {
         return {
@@ -140,8 +134,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
-        // Default to 'week' in that case.
-        this.page = page || 'week';
+        // Default to 'schedule' in that case.
+        this.page = page || 'schedule';
 
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {
@@ -151,7 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        var resolvedPageUrl = this.resolveUrl('l1nda-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,
             null,
@@ -164,6 +158,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
 
-    window.customElements.define(MyApp.is, MyApp);
+    window.customElements.define(L1ndaApp.is, L1ndaApp);
   </script>
 </dom-module>
