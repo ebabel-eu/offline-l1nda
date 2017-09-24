@@ -111,13 +111,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get is() { return 'l1nda-schedule'; }
 
       handleClick() {
-        this.active = false;
+        // If using Ajax, set this.active = false; when the call starts in beforeSend.
 
-        setTimeout(() => {
-          this.push('shifts', this.shift);
-          localStorage['shifts'] = JSON.stringify(this.shifts);
-          this.active = true;
-        }, 250);
+        this.push('shifts', this.shift);
+        localStorage['shifts'] = JSON.stringify(this.shifts);
+
+        // If using Ajax, set this.active = true; when the call is complete in finally.
       }
 
       onSelectDropdown(e) {
