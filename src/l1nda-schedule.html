@@ -113,7 +113,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handleClick() {
         // If using Ajax, set this.active = false; when the call starts in beforeSend.
 
-        this.push('shifts', this.shift);
+        const {
+          start,
+          end,
+          employee,
+          layer,
+        } = this.shift;
+
+        this.push('shifts', {
+          start,
+          end,
+          employee,
+          layer,
+          timestamp: Date.now(),
+        });
+
         localStorage['shifts'] = JSON.stringify(this.shifts);
 
         // If using Ajax, set this.active = true; when the call is complete in finally.
