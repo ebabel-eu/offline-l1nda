@@ -1,13 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -23,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="l1nda-icons.html">
 
 <link rel="lazy-import" href="l1nda-schedule.html">
+<link rel="lazy-import" href="l1nda-setup.html">
 <link rel="lazy-import" href="l1nda-error404.html">
 
 <dom-module id="l1nda-app">
@@ -81,6 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="schedule" href="[[rootPath]]schedule">Schedule</a>
+          <a name="setup" href="[[rootPath]]setup">Setup</a>
         </iron-selector>
       </app-drawer>
 
@@ -100,6 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fallback-selection="error404"
             role="main">
           <l1nda-schedule name="schedule"></l1nda-schedule>
+          <l1nda-setup name="setup"></l1nda-setup>
           <l1nda-error404 name="error404"></l1nda-error404>
         </iron-pages>
       </app-header-layout>

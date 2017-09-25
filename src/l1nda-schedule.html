@@ -1,17 +1,5 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-progress-button/paper-progress-button.html">
-
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
@@ -168,13 +156,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         this.active = true;
 
-        this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts']) || [];
+        this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
+          || [];
 
         this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-          || [ '07:45', '08:00', '08:15', '08:30', '08:45', '09:00', '09:15', '09:30' ].sort();
+          || [ '09:00' ];
 
         this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-          || [ '16:30', '16:45', '17:00', '17:15', '17:30', '17:45', '18:00', '18:15' ].sort();
+          || [ '17:30' ];
 
         this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
           || [ 'Susanne', 'Remy', 'Richard', 'Nadjib', 'Alson', 'Wouter', 'Tim', 'Rick', 'Linden', 'Masinde', 'Todd', 'Jochem' ].sort();

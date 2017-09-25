@@ -1,0 +1,108 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-progress-button/paper-progress-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="l1nda-setup">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+
+      .item {
+        background-color: var(--app-dark-color);
+        color: white;
+        display: inline-block;
+        padding: 2px 8px;
+        margin: 0 6px 8px 0;
+        border-radius: 12px;
+      }
+    </style>
+
+    <div class="card">
+      <h1>Setup</h1>
+
+      <h2>Start times</h2>
+      <template is="dom-repeat" items="[[startTimes]]">
+        <span class="item">
+          {{item}}
+        </span>
+      </template>
+      <form>
+        <paper-input
+          label="New start time"
+          name="start-time-input"
+          id="start-time-input"
+        >
+        </paper-input>
+        <p>
+          <paper-progress-button
+            active="[[active]]"
+            active-text="Add start time"
+            inactive-text="Adding..."
+            raised
+            on-click="addStartTime"
+            style="margin: 20px 0 20px -5px;"
+          >
+          </paper-progress-button>
+        </p>
+      </form>
+
+      <h2>End times</h2>
+      <template is="dom-repeat" items="[[endTimes]]">
+        <span class="item">
+          {{item}}
+        </span>
+      </template>
+      <form>
+        <paper-input label="New end time">
+        </paper-input>
+        <p>
+          <paper-progress-button
+            active="[[active]]"
+            active-text="Add end time"
+            inactive-text="Adding..."
+            raised
+            on-click="addEndTime"
+            style="margin: 20px 0 20px -5px;"
+          >
+          </paper-progress-button>
+        </p>
+      </form>
+
+
+
+    </div>
+  </template>
+
+  <script>
+    class L1ndaSetup extends Polymer.Element {
+      static get is() { return 'l1nda-setup'; }
+
+      addStartTime() {
+        this.push('startTimes', '08:45');
+        this.startTimes.sort();
+      }
+
+      addEndTime() {
+        this.push('endTimes', '18:00');
+        this.endTimes.sort();
+      }
+
+      constructor() {
+        super();
+
+        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
+          || [ '09:00' ];
+
+        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
+          || [ '17:30' ];
+      }
+    }
+
+    window.customElements.define(L1ndaSetup.is, L1ndaSetup);
+  </script>
+</dom-module>
