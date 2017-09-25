@@ -34,8 +34,7 @@
       <form>
         <paper-input
           label="New start time"
-          name="start-time-input"
-          id="start-time-input"
+          on-change="updateStartTime"
         >
         </paper-input>
         <p>
@@ -58,7 +57,10 @@
         </span>
       </template>
       <form>
-        <paper-input label="New end time">
+        <paper-input
+          label="New end time"
+          on-change="updateEndTime"
+        >
         </paper-input>
         <p>
           <paper-progress-button
@@ -72,9 +74,6 @@
           </paper-progress-button>
         </p>
       </form>
-
-
-
     </div>
   </template>
 
@@ -82,18 +81,37 @@
     class L1ndaSetup extends Polymer.Element {
       static get is() { return 'l1nda-setup'; }
 
+      updateStartTime(e) {
+        this.startTime = e.currentTarget.$.nativeInput.value;
+      }
+
       addStartTime() {
-        this.push('startTimes', '08:45');
-        this.startTimes.sort();
+        this.push('startTimes', this.startTime);
+
+        // Remove duplicates and sort the values.
+        this.startTimes = Array.from(new Set(this.startTimes)).sort();
+
+        localStorage['startTimes'] = JSON.stringify(this.startTimes);
+      }
+ 
+      updateEndTime(e) {
+        this.endTime = e.currentTarget.$.nativeInput.value;
       }
 
       addEndTime() {
-        this.push('endTimes', '18:00');
-        this.endTimes.sort();
+        this.push('endTimes', this.endTime);
+
+        // Remove duplicates and sort the values.
+        this.endTimes = Array.from(new Set(this.endTimes)).sort();
+
+        localStorage['endTimes'] = JSON.stringify(this.endTimes);
       }
 
       constructor() {
         super();
+
+        this.startTime = null;
+        this.endTime = null;
 
         this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
           || [ '09:00' ];
