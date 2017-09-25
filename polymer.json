@@ -3,7 +3,11 @@
   "shell": "src/l1nda-app.html",
   "fragments": [
     "src/l1nda-schedule.html",
-    "src/l1nda-error404.html"
+    "src/l1nda-error404.html",
+    "src/l1nda-icons.html",
+    "src/l1nda-shift.html",
+    "src/l1nda-schedule.html",
+    "src/shared-styles.html"
   ],
   "sources": [
     "src/**/*",
