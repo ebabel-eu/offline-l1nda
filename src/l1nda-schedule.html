@@ -96,15 +96,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </paper-listbox>
         </paper-dropdown-menu>
     
-        <paper-progress-button
-          active="[[active]]"
-          active-text="Add"
-          inactive-text="Adding..."
-          raised
-          on-click="handleClick"
-          style="margin: 20px 0 20px -5px;"
-        >
-        </paper-progress-button>
+        <p>
+          <paper-progress-button
+            active="[[active]]"
+            active-text="Add"
+            inactive-text="Adding..."
+            raised
+            on-click="addShift"
+            style="margin: 20px 0 20px -5px;"
+          >
+          </paper-progress-button>
+
+          <paper-progress-button
+            active="[[active]]"
+            active-text="Delete all"
+            inactive-text="Deleting all..."
+            raised
+            on-click="deleteAllShifts"
+            style="margin: 20px 0 20px -5px;"
+          >
+          </paper-progress-button>
+        </p>
       </form>
     </div>
 
@@ -114,7 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     class L1ndaSchedule extends Polymer.Element {
       static get is() { return 'l1nda-schedule'; }
 
-      handleClick() {
+      addShift() {
         // If using Ajax, set this.active = false; when the call starts in beforeSend.
 
         const {
@@ -135,6 +147,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         localStorage['shifts'] = JSON.stringify(this.shifts);
 
         // If using Ajax, set this.active = true; when the call is complete in finally.
+      }
+
+      deleteAllShifts() {
+        this.shifts = [];
+        localStorage.removeItem('shifts');
       }
 
       onSelectDropdown(e) {
