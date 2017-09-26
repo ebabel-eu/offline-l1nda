@@ -156,6 +156,8 @@
 
         this.active = true;
 
+        // todo: when setup has added new values, update these arrays without reloading the page.
+
         this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
           || [];
 
