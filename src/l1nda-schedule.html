@@ -160,16 +160,16 @@
           || [];
 
         this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-          || [ '09:00' ];
+          || [ '09:00' ]; // default is '09:00' when there is no data yet.
 
         this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-          || [ '17:30' ];
+          || [ '17:30' ]; // default is '17:30'.
 
         this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
-          || [ 'Susanne', 'Remy', 'Richard', 'Nadjib', 'Alson', 'Wouter', 'Tim', 'Rick', 'Linden', 'Masinde', 'Todd', 'Jochem' ].sort();
+          || [];
 
         this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
-          || [ 'Cryostasis', 'Cyberspace', 'Dystopia', 'Homeworld', 'Hyperdrive', 'Multiverse', 'Spaceship' ].sort();
+          || [];
       }
     }
 

@@ -74,6 +74,57 @@
           </paper-progress-button>
         </p>
       </form>
+
+      <h2>Employees</h2>
+      <template is="dom-repeat" items="[[employees]]">
+        <span class="item">
+          {{item}}
+        </span>
+      </template>
+      <form>
+        <paper-input
+          label="New employee"
+          on-change="updateEmployee"
+        >
+        </paper-input>
+        <p>
+          <paper-progress-button
+            active="[[active]]"
+            active-text="Add employee"
+            inactive-text="Adding..."
+            raised
+            on-click="addEmployee"
+            style="margin: 20px 0 20px -5px;"
+          >
+          </paper-progress-button>
+        </p>
+      </form>
+
+      <h2>Layers</h2>
+      <template is="dom-repeat" items="[[layers]]">
+        <span class="item">
+          {{item}}
+        </span>
+      </template>
+      <form>
+        <paper-input
+          label="New layer"
+          on-change="updateLayer"
+        >
+        </paper-input>
+        <p>
+          <paper-progress-button
+            active="[[active]]"
+            active-text="Add layer"
+            inactive-text="Adding..."
+            raised
+            on-click="addLayer"
+            style="margin: 20px 0 20px -5px;"
+          >
+          </paper-progress-button>
+        </p>
+      </form>
+
     </div>
   </template>
 
@@ -81,10 +132,11 @@
     class L1ndaSetup extends Polymer.Element {
       static get is() { return 'l1nda-setup'; }
 
+      // todo: refactor all the repetitions in this file between update.. and add... functions.
+
       updateStartTime(e) {
         this.startTime = e.currentTarget.$.nativeInput.value;
       }
-
       addStartTime() {
         this.push('startTimes', this.startTime);
 
@@ -97,27 +149,51 @@
       updateEndTime(e) {
         this.endTime = e.currentTarget.$.nativeInput.value;
       }
-
       addEndTime() {
         this.push('endTimes', this.endTime);
-
-        // Remove duplicates and sort the values.
         this.endTimes = Array.from(new Set(this.endTimes)).sort();
-
         localStorage['endTimes'] = JSON.stringify(this.endTimes);
+      }
+
+      updateEmployee(e) {
+        this.employee = e.currentTarget.$.nativeInput.value;
+      }
+      addEmployee() {
+        this.push('employees', this.employee);
+        this.employees = Array.from(new Set(this.employees)).sort();
+        localStorage['employees'] = JSON.stringify(this.employees);
+      }
+
+      updateLayer(e) {
+        this.layer = e.currentTarget.$.nativeInput.value;
+      }
+      addLayer() {
+        this.push('layers', this.layer);
+        this.layers = Array.from(new Set(this.layers)).sort();
+        localStorage['layers'] = JSON.stringify(this.layers);
       }
 
       constructor() {
         super();
 
+        // todo: refactor all the repetitions in this file and in l1nda-schedule.html
+
         this.startTime = null;
         this.endTime = null;
+        this.employee = null;
+        this.layer = null;
 
         this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
           || [ '09:00' ];
 
         this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
           || [ '17:30' ];
+
+        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
+          || [];
+
+        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
+          || [];
       }
     }
 
