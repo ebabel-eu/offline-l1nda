@@ -94,8 +94,16 @@
             attr-for-selected="name"
             fallback-selection="error404"
             role="main">
-          <l1nda-schedule name="schedule"></l1nda-schedule>
-          <l1nda-setup name="setup"></l1nda-setup>
+          <l1nda-schedule
+            name="schedule"
+            shared="{{shared}}"
+          >
+          </l1nda-schedule>
+          <l1nda-setup
+            name="setup"
+            shared="{{shared}}"
+          >
+          </l1nda-setup>
           <l1nda-error404 name="error404"></l1nda-error404>
         </iron-pages>
       </app-header-layout>
@@ -150,6 +158,12 @@
 
       _showPage404() {
         this.page = 'error404';
+      }
+
+      constructor() {
+        super();
+
+        this.shared = 'Hello world from Nadjib.';
       }
     }
 

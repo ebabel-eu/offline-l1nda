@@ -28,6 +28,7 @@
       <h1>Setup</h1>
 
       <h2>Start times</h2>
+      <p>{{shared}}</p>
       <template is="dom-repeat" items="[[startTimes]]">
         <span class="item">
           {{item}}
@@ -134,6 +135,15 @@
     class L1ndaSetup extends Polymer.Element {
       static get is() { return 'l1nda-setup'; }
 
+      static get properties() {
+        return {
+          shared: {
+            type: String,
+            notify: true,
+          }
+        }
+      }
+
       // todo: refactor all the repetitions in this file between update.. and add... functions.
 
       updateStartTime(e) {
@@ -146,6 +156,9 @@
         this.startTimes = Array.from(new Set(this.startTimes)).sort();
 
         localStorage['startTimes'] = JSON.stringify(this.startTimes);
+
+        this.set('shared', 'shared has changed');
+        this.notifyPath('shared');
       }
  
       updateEndTime(e) {

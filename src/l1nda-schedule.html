@@ -26,6 +26,8 @@
 
     <div class="card">
       <h1>Friday</h1>
+      <p>{{shared}}</p>
+
       <template is="dom-if" if=[[shifts]]>
         <template is="dom-repeat" items="[[shifts]]">
           <l1nda-shift
@@ -116,6 +118,15 @@
   <script>
     class L1ndaSchedule extends Polymer.Element {
       static get is() { return 'l1nda-schedule'; }
+
+      static get properties() {
+        return {
+          shared: {
+            type: String,
+            notify: true,
+          }
+        }
+      }
 
       addShift() {
         // If using Ajax, set this.active = false; when the call starts in beforeSend.
