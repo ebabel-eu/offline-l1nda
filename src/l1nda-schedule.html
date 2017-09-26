@@ -22,13 +22,31 @@
       paper-dropdown-menu {
         margin-right: 10px;
       }
+
+      .error {
+        color: darkred;
+      }
     </style>
 
     <div class="card">
-      <h1>Friday</h1>
-      <p>{{shared}}</p>
+      <template is="dom-if" if=[[!startTimes.length]]>
+        <p class="error">No start time setup yet.</p>
+      </template>
+      <template is="dom-if" if=[[!endTimes.length]]>
+        <p class="error">No end time setup yet.</p>
+      </template>
+      <template is="dom-if" if=[[!employees.length]]>
+        <p class="error">No employee setup yet.</p>
+      </template>
+      <template is="dom-if" if=[[!layers.length]]>
+        <p class="error">No layer setup yet.</p>
+      </template>
+      <template is="dom-if" if=[[!shifts.length]]>
+        <p class="error">No shift setup yet.</p>
+      </template>
 
-      <template is="dom-if" if=[[shifts]]>
+      <h1>[[today]]</h1>
+      <template is="dom-if" if=[[shifts.length]]>
         <template is="dom-repeat" items="[[shifts]]">
           <l1nda-shift
             start={{item.start}}
@@ -39,56 +57,59 @@
         </template>
       </template>
 
-      <template is="dom-if" if=[[!shifts]]>
-        <h2>No shift yet</h2>
-        <p>Add them with the form below, please.</p>
-      </template>
-
       <form>
-        <paper-dropdown-menu label="Start">
-          <paper-listbox
-            slot="dropdown-content"
-            on-selected-changed="onSelectDropdown"
-          >
-            <template is="dom-repeat" items=[[startTimes]]>
-              <paper-item>{{item}}</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
+        <template is="dom-if" if=[[startTimes.length]]>
+          <paper-dropdown-menu label="Start">
+            <paper-listbox
+              slot="dropdown-content"
+              on-selected-changed="onSelectDropdown"
+            >
+              <template is="dom-repeat" items={{startTimes}}>
+                <paper-item>{{item}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </template>
 
-        <paper-dropdown-menu label="End">
-          <paper-listbox
-            slot="dropdown-content"
-            on-selected-changed="onSelectDropdown"
-          >
-            <template is="dom-repeat" items=[[endTimes]]>
-              <paper-item>{{item}}</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
+        <template is="dom-if" if=[[endTimes.length]]>
+          <paper-dropdown-menu label="End">
+            <paper-listbox
+              slot="dropdown-content"
+              on-selected-changed="onSelectDropdown"
+            >
+              <template is="dom-repeat" items=[[endTimes]]>
+                <paper-item>{{item}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </template>
 
-        <paper-dropdown-menu label="Employee">
-          <paper-listbox
-            slot="dropdown-content"
-            on-selected-changed="onSelectDropdown"
-          >
-            <template is="dom-repeat" items=[[employees]]>
-              <paper-item>{{item}}</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
+        <template is="dom-if" if=[[employees.length]]>
+          <paper-dropdown-menu label="Employee">
+            <paper-listbox
+              slot="dropdown-content"
+              on-selected-changed="onSelectDropdown"
+            >
+              <template is="dom-repeat" items=[[employees]]>
+                <paper-item>{{item}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </template>
 
-        <paper-dropdown-menu label="Layer">
-          <paper-listbox
-            slot="dropdown-content"
-            on-selected-changed="onSelectDropdown"
-          >
-            <template is="dom-repeat" items=[[layers]]>
-              <paper-item>{{item}}</paper-item>
-            </template>
-          </paper-listbox>
-        </paper-dropdown-menu>
-    
+        <template is="dom-if" if=[[layers.length]]>
+          <paper-dropdown-menu label="Layer">
+            <paper-listbox
+              slot="dropdown-content"
+              on-selected-changed="onSelectDropdown"
+            >
+              <template is="dom-repeat" items=[[layers]]>
+                <paper-item>{{item}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </template>
+
         <p>
           <paper-progress-button
             active="[[active]]"
@@ -121,10 +142,22 @@
 
       static get properties() {
         return {
-          shared: {
-            type: String,
+          startTimes: {
+            type: Array,
             notify: true,
-          }
+          },
+          endTimes: {
+            type: Array,
+            notify: true,
+          },
+          employees: {
+            type: Array,
+            notify: true,
+          },
+          layers: {
+            type: Array,
+            notify: true,
+          },
         }
       }
 
@@ -166,26 +199,14 @@
       constructor() {
         super();
 
-        this.shift = {};
-
         this.active = true;
 
-        // todo: when setup has added new values, update these arrays without reloading the page.
-
+        this.shift = {};
         this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
           || [];
 
-        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-          || [ '09:00' ]; // default is '09:00' when there is no data yet.
-
-        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-          || [ '17:30' ]; // default is '17:30'.
-
-        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
-          || [];
-
-        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
-          || [];
+        const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+        this.today = days[new Date().getDay()];
       }
     }
 

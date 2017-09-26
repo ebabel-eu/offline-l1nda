@@ -93,15 +93,22 @@
             selected="[[page]]"
             attr-for-selected="name"
             fallback-selection="error404"
-            role="main">
+            role="main"
+        >
           <l1nda-schedule
             name="schedule"
-            shared="{{shared}}"
+            start-times="{{startTimes}}"
+            end-times="{{endTimes}}"
+            employees="{{employees}}"
+            layers="{{layers}}"
           >
           </l1nda-schedule>
           <l1nda-setup
             name="setup"
-            shared="{{shared}}"
+            start-times="{{startTimes}}"
+            end-times="{{endTimes}}"
+            employees="{{employees}}"
+            layers="{{layers}}"
           >
           </l1nda-setup>
           <l1nda-error404 name="error404"></l1nda-error404>
@@ -163,7 +170,17 @@
       constructor() {
         super();
 
-        this.shared = 'Hello world from Nadjib.';
+        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
+          || [];
+
+        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
+          || [];
+
+        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
+          || [];
+
+        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
+          || [];
       }
     }
 

@@ -22,13 +22,16 @@
         margin: 0 6px 8px 0;
         border-radius: 12px;
       }
+
+      paper-progress-button {
+        margin: 20px 10px 60px -5px;
+      }
     </style>
 
     <div class="card">
       <h1>Setup</h1>
 
       <h2>Start times</h2>
-      <p>{{shared}}</p>
       <template is="dom-repeat" items="[[startTimes]]">
         <span class="item">
           {{item}}
@@ -47,7 +50,6 @@
             inactive-text="Adding..."
             raised
             on-click="addStartTime"
-            style="margin: 20px 10px 0 -5px;"
           >
           </paper-progress-button>
         </p>
@@ -72,7 +74,6 @@
             inactive-text="Adding..."
             raised
             on-click="addEndTime"
-            style="margin: 20px 10px 0 -5px;"
           >
           </paper-progress-button>
         </p>
@@ -97,7 +98,6 @@
             inactive-text="Adding..."
             raised
             on-click="addEmployee"
-            style="margin: 20px 10px 0 -5px;"
           >
           </paper-progress-button>
         </p>
@@ -122,7 +122,6 @@
             inactive-text="Adding..."
             raised
             on-click="addLayer"
-            style="margin: 20px 10px 0 -5px;"
           >
           </paper-progress-button>
         </p>
@@ -137,10 +136,22 @@
 
       static get properties() {
         return {
-          shared: {
-            type: String,
+          startTimes: {
+            type: Array,
             notify: true,
-          }
+          },
+          endTimes: {
+            type: Array,
+            notify: true,
+          },
+          employees: {
+            type: Array,
+            notify: true,
+          },
+          layers: {
+            type: Array,
+            notify: true,
+          },
         }
       }
 
@@ -156,9 +167,6 @@
         this.startTimes = Array.from(new Set(this.startTimes)).sort();
 
         localStorage['startTimes'] = JSON.stringify(this.startTimes);
-
-        this.set('shared', 'shared has changed');
-        this.notifyPath('shared');
       }
  
       updateEndTime(e) {
@@ -191,24 +199,10 @@
       constructor() {
         super();
 
-        // todo: refactor all the repetitions in this file and in l1nda-schedule.html
-
         this.startTime = null;
         this.endTime = null;
         this.employee = null;
         this.layer = null;
-
-        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-          || [ '09:00' ];
-
-        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-          || [ '17:30' ];
-
-        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
-          || [];
-
-        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
-          || [];
       }
     }
 
