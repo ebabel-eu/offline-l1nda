@@ -33,13 +33,14 @@
       }
     </style>
 
-    <div class="shift">
+    <div class="shift" id="[[id]]">
       <span class="start">[[start]]</span> -
       <span class="end">[[end]]</span>
       <span>[[employee]] ([[layer]])</span>
       <paper-icon-button
         icon="l1nda-icons:close"
-        drawer-toggle>
+        drawer-toggle
+        on-click="removeShift">
       </paper-icon-button>
     </div>
   </template>
@@ -60,10 +61,26 @@
           layer: {
             type: String,
           },
+          id: {
+            type: String,
+          },
+          shifts: {
+            type: Array,
+            notify: true,
+          },
         }
       }
-      constructor() {
-        super();
+
+      removeShift(e) {
+        const id = e.currentTarget.parentNode.id;
+        const toDelete = this.shifts.filter(shift => shift.id === id)[0];
+        const index = this.shifts.indexOf(toDelete);
+
+        this.shifts.splice(index, 1);
+
+        this.set('shifts', this.shifts);
+
+        localStorage['shifts'] = JSON.stringify(this.shifts);
       }
     }
     customElements.define(L1ndaShift.is, L1ndaShift);

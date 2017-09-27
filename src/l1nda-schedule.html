@@ -47,12 +47,14 @@
 
       <h1>[[today]]</h1>
       <template is="dom-if" if=[[shifts.length]]>
-        <template is="dom-repeat" items="[[shifts]]">
+        <template is="dom-repeat" items="{{shifts}}">
           <l1nda-shift
-            start={{item.start}}
-            end={{item.end}}
-            employee={{item.employee}}
-            layer={{item.layer}}
+            start=[[item.start]]
+            end=[[item.end]]
+            employee=[[item.employee]]
+            layer=[[item.layer]]
+            id=[[item.id]]
+            shifts={{shifts}}
           ></l1nda-shift>
         </template>
       </template>
@@ -137,6 +139,13 @@
   </template>
 
   <script>
+    const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+
+    // Return a global unique id.
+    const guid = () => `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
+
     class L1ndaSchedule extends Polymer.Element {
       static get is() { return 'l1nda-schedule'; }
 
@@ -176,7 +185,7 @@
           end,
           employee,
           layer,
-          timestamp: Date.now(),
+          id: guid(),
         });
 
         localStorage['shifts'] = JSON.stringify(this.shifts);
