@@ -41,12 +41,12 @@
       <template is="dom-if" if=[[!layers.length]]>
         <p class="error">No layer setup yet.</p>
       </template>
-      <template is="dom-if" if=[[!shifts.length]]>
+      <template is="dom-if" if={{!shifts.length}}>
         <p class="error">No shift setup yet.</p>
       </template>
 
       <h1>[[today]]</h1>
-      <template is="dom-if" if=[[shifts.length]]>
+      <template is="dom-if" if={{shifts.length}}>
         <template is="dom-repeat" items="{{shifts}}">
           <l1nda-shift
             start=[[item.start]]

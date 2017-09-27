@@ -76,9 +76,7 @@
         const toDelete = this.shifts.filter(shift => shift.id === id)[0];
         const index = this.shifts.indexOf(toDelete);
 
-        this.shifts.splice(index, 1);
-
-        this.set('shifts', this.shifts);
+        this.splice('shifts', index, 1);
 
         localStorage['shifts'] = JSON.stringify(this.shifts);
       }
