@@ -1,4 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">\
+
+<link rel="import" href="l1nda-icons.html">
 
 <dom-module id="l1nda-shift">
   <template>
@@ -10,15 +13,23 @@
 
       .shift {
         border-radius: 6px;
-        padding: 2px 12px;
+        padding: 2px 52px 2px 12px;
         background-color: #FCE4EC;
         color: #880E4F;
-        line-height: 2em;
+        line-height: 2.5em;
+        position: relative;
       }
 
       .start,
       .end {
         font-weight: bold;
+      }
+
+      paper-icon-button {
+        float: right;
+        position: absolute;
+        top: 2px;
+        right: 2px;
       }
     </style>
 
@@ -26,6 +37,10 @@
       <span class="start">[[start]]</span> -
       <span class="end">[[end]]</span>
       <span>[[employee]] ([[layer]])</span>
+      <paper-icon-button
+        icon="l1nda-icons:close"
+        drawer-toggle>
+      </paper-icon-button>
     </div>
   </template>
   <script>
