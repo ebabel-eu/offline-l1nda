@@ -146,7 +146,7 @@
     // Return a global unique id.
     const guid = () => `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
 
-    class L1ndaSchedule extends Polymer.Element {
+    class L1ndaSchedule extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-schedule'; }
 
       static get properties() {

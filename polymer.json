@@ -7,7 +7,8 @@
     "src/l1nda-error404.html",
     "src/l1nda-icons.html",
     "src/l1nda-shift.html",
-    "src/shared-styles.html"
+    "src/shared-styles.html",
+    "src/redux-mixin.html"
   ],
   "sources": [
     "src/**/*",

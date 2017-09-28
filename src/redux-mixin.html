@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="../node_modules/redux-devtools-extension/index.js">
+
+<script src="../node_modules/redux/dist/redux.js"></script>
+
+<script>
+  // Setup a Redux store
+  const initial = {
+    mainTitle: 'L1NDA',
+  };
+
+  const reducer = (state, action) => {
+    if (!state) {
+      return initial;
+    }
+
+    switch (action.type) {
+      default:
+        return state;
+    }
+  };
+
+  const store = Redux.createStore(reducer, initial);
+
+  // Export the ReduxMixin
+  ReduxMixin = PolymerRedux(store);
+</script>

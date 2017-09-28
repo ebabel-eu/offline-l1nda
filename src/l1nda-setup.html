@@ -131,7 +131,7 @@
   </template>
 
   <script>
-    class L1ndaSetup extends Polymer.Element {
+    class L1ndaSetup extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-setup'; }
 
       static get properties() {
