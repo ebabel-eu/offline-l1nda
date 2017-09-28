@@ -13,6 +13,11 @@ Second, install [Bower](https://bower.io/) using [npm](https://www.npmjs.com)
 
     npm install -g bower
 
+### Install dependencies
+
+    polymer install
+    npm install
+
 ### Start the development server
 
 This command serves the app at `http://127.0.0.1:8081` and provides basic URL
