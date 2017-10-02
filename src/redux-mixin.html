@@ -4,9 +4,38 @@
 <script src="../node_modules/redux/dist/redux.js"></script>
 
 <script>
+  const startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
+    || [];
+
+  const endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
+    || [];
+
+  const employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
+    || [];
+
+  const layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
+    || [];
+
+  const shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
+    || [];
+
   // Setup a Redux store
   const initial = {
     mainTitle: 'L1NDA',
+    days: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+    startTimes,
+    endTimes,
+    employees,
+    layers,
+    shifts,
   };
 
   const reducer = (state, action) => {

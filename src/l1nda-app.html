@@ -101,18 +101,18 @@
         >
           <l1nda-schedule
             name="schedule"
-            start-times="{{startTimes}}"
-            end-times="{{endTimes}}"
-            employees="{{employees}}"
-            layers="{{layers}}"
+            start-times="[[startTimes]]"
+            end-times="[[endTimes]]"
+            employees="[[employees]]"
+            layers="[[layers]]"
           >
           </l1nda-schedule>
           <l1nda-setup
             name="setup"
-            start-times="{{startTimes}}"
-            end-times="{{endTimes}}"
-            employees="{{employees}}"
-            layers="{{layers}}"
+            start-times="[[startTimes]]"
+            end-times="[[endTimes]]"
+            employees="[[employees]]"
+            layers="[[layers]]"
           >
           </l1nda-setup>
           <l1nda-error404 name="error404"></l1nda-error404>
@@ -183,17 +183,10 @@
       constructor() {
         super();
 
-        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-          || [];
-
-        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-          || [];
-
-        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
-          || [];
-
-        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
-          || [];
+        this.startTimes = store.getState().startTimes;
+        this.endTimes = store.getState().endTimes;
+        this.employees = store.getState().employees;
+        this.layers = store.getState().layers;
       }
     }
 

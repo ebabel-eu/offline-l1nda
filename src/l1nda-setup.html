@@ -34,7 +34,7 @@
       <h2>Start times</h2>
       <template is="dom-repeat" items="[[startTimes]]">
         <span class="item">
-          {{item}}
+          [[item]]
         </span>
       </template>
       <form>
@@ -58,7 +58,7 @@
       <h2>End times</h2>
       <template is="dom-repeat" items="[[endTimes]]">
         <span class="item">
-          {{item}}
+          [[item]]
         </span>
       </template>
       <form>
@@ -82,7 +82,7 @@
       <h2>Employees</h2>
       <template is="dom-repeat" items="[[employees]]">
         <span class="item">
-          {{item}}
+          [[item]]
         </span>
       </template>
       <form>
@@ -106,7 +106,7 @@
       <h2>Layers</h2>
       <template is="dom-repeat" items="[[layers]]">
         <span class="item">
-          {{item}}
+          [[item]]
         </span>
       </template>
       <form>
@@ -138,19 +138,15 @@
         return {
           startTimes: {
             type: Array,
-            notify: true,
           },
           endTimes: {
             type: Array,
-            notify: true,
           },
           employees: {
             type: Array,
-            notify: true,
           },
           layers: {
             type: Array,
-            notify: true,
           },
         }
       }
@@ -161,11 +157,12 @@
         this.startTime = e.currentTarget.$.nativeInput.value;
       }
       addStartTime() {
+        // todo: this is updating a 2 way binding Polymer property,
+        // but I need to switch to updating the Redux store with an action.
         this.push('startTimes', this.startTime);
-
-        // Remove duplicates and sort the values.
+        // Remove duplicates.
         this.startTimes = Array.from(new Set(this.startTimes)).sort();
-
+        // Persist to local storage.
         localStorage['startTimes'] = JSON.stringify(this.startTimes);
       }
  

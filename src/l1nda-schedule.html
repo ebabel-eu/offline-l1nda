@@ -41,20 +41,20 @@
       <template is="dom-if" if=[[!layers.length]]>
         <p class="error">No layer setup yet.</p>
       </template>
-      <template is="dom-if" if={{!shifts.length}}>
+      <template is="dom-if" if=[[!shifts.length]]>
         <p class="error">No shift setup yet.</p>
       </template>
 
       <h1>[[today]]</h1>
-      <template is="dom-if" if={{shifts.length}}>
-        <template is="dom-repeat" items="{{shifts}}">
+      <template is="dom-if" if=[[shifts.length]]>
+        <template is="dom-repeat" items="[[shifts]]">
           <l1nda-shift
             start=[[item.start]]
             end=[[item.end]]
             employee=[[item.employee]]
             layer=[[item.layer]]
             id=[[item.id]]
-            shifts={{shifts}}
+            shifts=[[shifts]]
           ></l1nda-shift>
         </template>
       </template>
@@ -66,8 +66,8 @@
               slot="dropdown-content"
               on-selected-changed="onSelectDropdown"
             >
-              <template is="dom-repeat" items={{startTimes}}>
-                <paper-item>{{item}}</paper-item>
+              <template is="dom-repeat" items=[[startTimes]]>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -80,7 +80,7 @@
               on-selected-changed="onSelectDropdown"
             >
               <template is="dom-repeat" items=[[endTimes]]>
-                <paper-item>{{item}}</paper-item>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -93,7 +93,7 @@
               on-selected-changed="onSelectDropdown"
             >
               <template is="dom-repeat" items=[[employees]]>
-                <paper-item>{{item}}</paper-item>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -106,7 +106,7 @@
               on-selected-changed="onSelectDropdown"
             >
               <template is="dom-repeat" items=[[layers]]>
-                <paper-item>{{item}}</paper-item>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -153,19 +153,15 @@
         return {
           startTimes: {
             type: Array,
-            notify: true,
           },
           endTimes: {
             type: Array,
-            notify: true,
           },
           employees: {
             type: Array,
-            notify: true,
           },
           layers: {
             type: Array,
-            notify: true,
           },
         }
       }
@@ -211,11 +207,11 @@
         this.active = true;
 
         this.shift = {};
-        this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
-          || [];
+        this.shifts = store.getState().shifts;
 
-        const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
-        this.today = days[new Date().getDay()];
+        const days = store.getState().days;
+        const dayIndex = new Date().getDay();
+        this.today = (days && days[dayIndex]) || `Day ${dayIndex + 1}`;
       }
     }
 
