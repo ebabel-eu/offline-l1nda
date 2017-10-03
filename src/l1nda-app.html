@@ -227,11 +227,19 @@
       constructor() {
         super();
 
-        this.startTimes = store.getState().startTimes;
-        this.endTimes = store.getState().endTimes;
-        this.employees = store.getState().employees;
-        this.layers = store.getState().layers;
-        this.shifts = store.getState().shifts;
+        const {
+          startTimes,
+          endTimes,
+          employees,
+          layers,
+          shifts,
+        } = store.getState();
+
+        this.startTimes = startTimes;
+        this.endTimes = endTimes;
+        this.employees = employees;
+        this.layers = layers;
+        this.shifts = shifts;
       }
     }
 
