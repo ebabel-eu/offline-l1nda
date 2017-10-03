@@ -134,29 +134,6 @@
     class L1ndaSetup extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-setup'; }
 
-      static get properties() {
-        return {
-          startTimes: {
-            type: Array,
-            statePath: 'startTimes',
-          },
-          endTimes: {
-            type: Array,
-            statePath: 'endTimes',
-          },
-          employees: {
-            type: Array,
-            statePath: 'employees',
-          },
-          layers: {
-            type: Array,
-            statePath: 'layers',
-          },
-        }
-      }
-
-      // todo: refactor all the repetitions in this file between update.. and add... functions.
-
       updateStartTime(e) {
         this.startTime = e.currentTarget.$.nativeInput.value;
       }

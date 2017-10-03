@@ -54,7 +54,6 @@
             employee=[[item.employee]]
             layer=[[item.layer]]
             id=[[item.id]]
-            shifts=[[shifts]]
           ></l1nda-shift>
         </template>
       </template>
@@ -148,33 +147,6 @@
 
     class L1ndaSchedule extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-schedule'; }
-
-      static get properties() {
-        return {
-          startTimes: {
-            type: Array,
-            statePath: 'startTimes',
-          },
-          endTimes: {
-            type: Array,
-            statePath: 'endTimes',
-          },
-          employees: {
-            type: Array,
-            statePath: 'employees',
-          },
-          layers: {
-            type: Array,
-            statePath: 'layers',
-          },
-          shifts: {
-            type: Array,
-            statePath(state) {
-              return state.shifts;
-            },
-          },
-        }
-      }
 
       addShift() {
         const id = guid();

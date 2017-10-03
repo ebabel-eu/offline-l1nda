@@ -45,7 +45,7 @@
     </div>
   </template>
   <script>
-    class L1ndaShift extends Polymer.Element {
+    class L1ndaShift extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-shift'; }
       static get properties() {
         return {
@@ -64,21 +64,18 @@
           id: {
             type: String,
           },
-          shifts: {
-            type: Array,
-            statePath: 'shifts',
-          },
         }
       }
 
       removeShift(e) {
         const id = e.currentTarget.parentNode.id;
-        const toDelete = this.shifts.filter(shift => shift.id === id)[0];
-        const index = this.shifts.indexOf(toDelete);
+        const toDelete = store.getState().shifts.filter(shift => shift.id === id)[0];
+        const index = store.getState().shifts.indexOf(toDelete);
 
-        this.splice('shifts', index, 1);
+        // todo: delete that shift with a Redux action.
+        // this.splice('shifts', index, 1);
 
-        localStorage['shifts'] = JSON.stringify(this.shifts);
+        // localStorage['shifts'] = JSON.stringify(this.shifts);
       }
     }
     customElements.define(L1ndaShift.is, L1ndaShift);

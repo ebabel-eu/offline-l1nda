@@ -155,6 +155,30 @@
             type: String,
             statePath: 'mainTitle',
           },
+          startTimes: {
+            type: Array,
+            statePath(state) {
+              return state.startTimes;
+            },
+          },
+          endTimes: {
+            type: Array,
+            statePath(state) {
+              return state.endTimes;
+            },
+          },
+          employees: {
+            type: Array,
+            statePath(state) {
+              return state.employees;
+            },
+          },
+          layers: {
+            type: Array,
+            statePath(state) {
+              return state.layers;
+            },
+          },
           shifts: {
             type: Array,
             statePath(state) {
