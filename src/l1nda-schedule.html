@@ -167,37 +167,23 @@
             type: Array,
             statePath: 'layers',
           },
+          shifts: {
+            type: Array,
+            statePath(state) {
+              return state.shifts;
+            },
+          },
         }
       }
 
       addShift() {
-        // If using Ajax, set this.active = false; when the call starts in beforeSend.
-
-        const {
-          start,
-          end,
-          employee,
-          layer,
-        } = this.shift;
-
-        this.push('shifts', {
-          start,
-          end,
-          employee,
-          layer,
-          id: guid(),
-        });
-
-        localStorage['shifts'] = JSON.stringify(this.shifts);
-
-        // If using Ajax, set this.active = true; when the call is complete in finally.
-
-
-        // temporary code: test if I can broadcast an action for Redux.
+        const id = guid();
         this.dispatch({
-          type: 'UPDATE_MAIN_TITLE',
-          mainTitle: employee,
+          type: 'ADD_SHIFT',
+          shift: Object.assign({}, this.shift, { id }),
         });
+
+        localStorage['shifts'] = JSON.stringify(store.getState().shifts);
       }
 
       deleteAllShifts() {
@@ -218,7 +204,6 @@
         this.active = true;
 
         this.shift = {};
-        this.shifts = store.getState().shifts;
 
         const days = store.getState().days;
         const dayIndex = new Date().getDay();

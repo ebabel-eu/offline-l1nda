@@ -3,7 +3,11 @@
 
 <script>
   const readStorage = (key) =>
-    (localStorage[key] && JSON.parse(localStorage[key]).sort()) || [];
+    (
+      localStorage[key]
+      && Array.isArray(JSON.parse(localStorage[key]))
+      && JSON.parse(localStorage[key]).sort()
+    ) || [];
 
   const startTimes = readStorage('startTimes');
   const endTimes = readStorage('endTimes');
@@ -39,6 +43,12 @@
       case 'UPDATE_MAIN_TITLE':
         return Object.assign({}, state, {
           mainTitle: action.mainTitle,
+        });
+      case 'ADD_SHIFT':
+        const _shifts = state.shifts;
+        _shifts.push(action.shift);
+        return Object.assign({}, state, {
+          shifts: _shifts,
         });
       default:
         return state;
