@@ -24,7 +24,8 @@
     "polymer-redux": "1.0.3"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#6.0.0"
+    "web-component-tester": "Polymer/web-component-tester#6.0.0",
+    "iron-component-page": "3.0.1"
   },
   "private": true
 }
