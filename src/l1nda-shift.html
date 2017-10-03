@@ -67,15 +67,25 @@
         }
       }
 
+      addShift() {
+        const id = guid();
+        this.dispatch({
+          type: 'ADD_SHIFT',
+          shift: Object.assign({}, this.shift, { id }),
+        });
+
+        localStorage['shifts'] = JSON.stringify(store.getState().shifts);
+      }
+
+
       removeShift(e) {
         const id = e.currentTarget.parentNode.id;
-        const toDelete = store.getState().shifts.filter(shift => shift.id === id)[0];
-        const index = store.getState().shifts.indexOf(toDelete);
+        this.dispatch({
+          type: 'REMOVE_SHIFT',
+          id,
+        });
 
-        // todo: delete that shift with a Redux action.
-        // this.splice('shifts', index, 1);
-
-        // localStorage['shifts'] = JSON.stringify(this.shifts);
+        localStorage['shifts'] = JSON.stringify(store.getState().shifts);
       }
     }
     customElements.define(L1ndaShift.is, L1ndaShift);
