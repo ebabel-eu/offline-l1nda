@@ -91,10 +91,14 @@ application. Each new demand-loaded fragment should be added to the list of
 components and their dependencies are added to the list of pre-cached components
 and will be included in the build.
 
-### Document
+### Document generation
 
 `cd` to the root of the project.
 
 ```
 polymer analyze > analysis.json
 ```
+
+Browse to /docs.html to see the generated documentation.
+
+Note: the file `docs.html` isn't generated, however its content is, via the `analysis.json` file.
