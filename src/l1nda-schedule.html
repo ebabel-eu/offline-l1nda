@@ -187,7 +187,10 @@
       }
 
       deleteAllShifts() {
-        this.shifts = [];
+        this.dispatch({
+          type: 'DELETE_ALL_SHIFTS',
+        });
+
         localStorage.removeItem('shifts');
       }
 

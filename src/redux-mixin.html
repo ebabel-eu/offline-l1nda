@@ -45,11 +45,11 @@
           mainTitle: action.mainTitle,
         });
       case 'ADD_SHIFT':
-        const _shifts = state.shifts;
-        _shifts.push(action.shift);
-        return Object.assign({}, state, {
-          shifts: _shifts,
-        });
+        const shifts = state.shifts.slice(0);
+        shifts.push(action.shift);
+        return Object.assign({}, state, { shifts });
+      case 'DELETE_ALL_SHIFTS':
+        return Object.assign({}, state, { shifts: [] });
       default:
         return state;
     }
