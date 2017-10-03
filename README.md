@@ -96,7 +96,7 @@ and will be included in the build.
 `cd` to the root of the project.
 
 ```
-polymer analyze > analysis.json
+npm run docs
 ```
 
 Browse to /docs.html to see the generated documentation.

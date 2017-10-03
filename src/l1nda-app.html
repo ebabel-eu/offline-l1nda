@@ -122,6 +122,21 @@
   </template>
 
   <script>
+    /**
+    * `<l1nda-app>` is the root element of the whole Offline L1nda app.
+    * Typical use is to place `<l1nda-app>` just after the opening `<body>` tag:
+    * ```
+    * <body>
+    *   <l1nda-app></l1nda-app>
+    *   <noscript>
+    *     Please enable JavaScript to view this website.
+    *   </noscript>
+    * </body>
+    * ```
+    * The custom element `<l1nda-app>` is bound to Redux. See https://tur-nr.github.io/polymer-redux/docs
+    *
+    * @demo https://offlinel1nda.firebaseapp.com/
+    */
     class L1ndaApp extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-app'; }
 
@@ -137,9 +152,7 @@
 
           mainTitle: {
             type: String,
-            statePath(state) {
-              return state.mainTitle;
-            },
+            statePath: 'mainTitle',
           },
 
           // This shouldn't be neccessary, but the Analyzer isn't picking up

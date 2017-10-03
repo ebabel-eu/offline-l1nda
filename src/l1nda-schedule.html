@@ -153,15 +153,19 @@
         return {
           startTimes: {
             type: Array,
+            statePath: 'startTimes',
           },
           endTimes: {
             type: Array,
+            statePath: 'endTimes',
           },
           employees: {
             type: Array,
+            statePath: 'employees',
           },
           layers: {
             type: Array,
+            statePath: 'layers',
           },
         }
       }
@@ -187,6 +191,13 @@
         localStorage['shifts'] = JSON.stringify(this.shifts);
 
         // If using Ajax, set this.active = true; when the call is complete in finally.
+
+
+        // temporary code: test if I can broadcast an action for Redux.
+        this.dispatch({
+          type: 'UPDATE_MAIN_TITLE',
+          mainTitle: employee,
+        });
       }
 
       deleteAllShifts() {

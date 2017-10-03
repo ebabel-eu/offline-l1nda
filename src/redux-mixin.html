@@ -1,22 +1,15 @@
 <link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
-
 <script src="../node_modules/redux/dist/redux.js"></script>
 
 <script>
-  const startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-    || [];
+  const readStorage = (key) =>
+    (localStorage[key] && JSON.parse(localStorage[key]).sort()) || [];
 
-  const endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-    || [];
-
-  const employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
-    || [];
-
-  const layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
-    || [];
-
-  const shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
-    || [];
+  const startTimes = readStorage('startTimes');
+  const endTimes = readStorage('endTimes');
+  const employees = readStorage('employees');
+  const layers = readStorage('layers');
+  const shifts = readStorage('shifts');
 
   // Setup a Redux store
   const initial = {
@@ -43,6 +36,10 @@
     }
 
     switch (action.type) {
+      case 'UPDATE_MAIN_TITLE':
+        return Object.assign({}, state, {
+          mainTitle: action.mainTitle,
+        });
       default:
         return state;
     }
