@@ -138,40 +138,48 @@
         this.startTime = e.currentTarget.$.nativeInput.value;
       }
       addStartTime() {
-        // todo: this is updating a 2 way binding Polymer property,
-        // but I need to switch to updating the Redux store with an action.
-        this.push('startTimes', this.startTime);
-        // Remove duplicates.
-        this.startTimes = Array.from(new Set(this.startTimes)).sort();
-        // Persist to local storage.
-        localStorage['startTimes'] = JSON.stringify(this.startTimes);
+        this.dispatch({
+          type: 'ADD_START_TIME',
+          startTime: this.startTime,
+        });
+
+        localStorage['startTimes'] = JSON.stringify(store.getState().startTimes);
       }
  
       updateEndTime(e) {
         this.endTime = e.currentTarget.$.nativeInput.value;
       }
       addEndTime() {
-        this.push('endTimes', this.endTime);
-        this.endTimes = Array.from(new Set(this.endTimes)).sort();
-        localStorage['endTimes'] = JSON.stringify(this.endTimes);
+        this.dispatch({
+          type: 'ADD_END_TIME',
+          endTime: this.endTime,
+        });
+
+        localStorage['endTimes'] = JSON.stringify(store.getState().endTimes);
       }
 
       updateEmployee(e) {
         this.employee = e.currentTarget.$.nativeInput.value;
       }
       addEmployee() {
-        this.push('employees', this.employee);
-        this.employees = Array.from(new Set(this.employees)).sort();
-        localStorage['employees'] = JSON.stringify(this.employees);
+        this.dispatch({
+          type: 'ADD_EMPLOYEE',
+          employee: this.employee,
+        });
+
+        localStorage['employees'] = JSON.stringify(store.getState().employees);
       }
 
       updateLayer(e) {
         this.layer = e.currentTarget.$.nativeInput.value;
       }
       addLayer() {
-        this.push('layers', this.layer);
-        this.layers = Array.from(new Set(this.layers)).sort();
-        localStorage['layers'] = JSON.stringify(this.layers);
+        this.dispatch({
+          type: 'ADD_LAYER',
+          layer: this.layer,
+        });
+
+        localStorage['layers'] = JSON.stringify(store.getState().layers);
       }
 
       constructor() {

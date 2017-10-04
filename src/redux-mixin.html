@@ -57,6 +57,27 @@
         const index = state.shifts.indexOf(toDelete);
         shifts.splice(index, 1)
         return Object.assign({}, state, { shifts });
+      case 'ADD_START_TIME':
+        let startTimes = state.startTimes.slice(0);
+        startTimes.push(action.startTime);
+        // Remove duplicates and sort the result.
+        startTimes = Array.from(new Set(startTimes)).sort();
+        return Object.assign({}, state, { startTimes });
+      case 'ADD_END_TIME':
+        let endTimes = state.endTimes.slice(0);
+        endTimes.push(action.endTime);
+        endTimes = Array.from(new Set(endTimes)).sort();
+        return Object.assign({}, state, { endTimes });
+      case 'ADD_EMPLOYEE':
+        let employees = state.employees.slice(0);
+        employees.push(action.employee);
+        employees = Array.from(new Set(employees)).sort();
+        return Object.assign({}, state, { employees });
+      case 'ADD_LAYER':
+        let layers = state.layers.slice(0);
+        layers.push(action.layer);
+        layers = Array.from(new Set(layers)).sort();
+        return Object.assign({}, state, { layers });
       default:
         return state;
     }
