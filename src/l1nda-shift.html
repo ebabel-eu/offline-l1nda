@@ -67,17 +67,6 @@
         }
       }
 
-      addShift() {
-        const id = guid();
-        this.dispatch({
-          type: 'ADD_SHIFT',
-          shift: Object.assign({}, this.shift, { id }),
-        });
-
-        localStorage['shifts'] = JSON.stringify(store.getState().shifts);
-      }
-
-
       removeShift(e) {
         const id = e.currentTarget.parentNode.id;
         this.dispatch({
