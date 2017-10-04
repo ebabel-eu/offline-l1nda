@@ -39,6 +39,7 @@
       return initial;
     }
 
+    // Local copy of the shifts from Redux state.
     const shifts = state.shifts.slice(0);
 
     switch (action.type) {
@@ -61,7 +62,12 @@
     }
   };
 
-  const store = Redux.createStore(reducer, initial);
+  // If Redux DevTools extension is installed in browser, include it in Redux store.
+  const enhancer = Redux.compose(
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+  const store = Redux.createStore(reducer, initial, enhancer);
 
   // Export the ReduxMixin
   ReduxMixin = PolymerRedux(store);
