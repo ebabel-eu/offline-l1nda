@@ -1,0 +1,95 @@
+<link rel="import" href="../bower_components/polymer-redux/polymer-redux.html">
+<script src="../node_modules/redux/dist/redux.js"></script>
+
+<script>
+  const readStorage = (key) =>
+    (
+      localStorage[key]
+      && Array.isArray(JSON.parse(localStorage[key]))
+      && JSON.parse(localStorage[key])
+    ) || [];
+
+  const startTimes = readStorage('startTimes').sort();
+  const endTimes = readStorage('endTimes').sort();
+  const employees = readStorage('employees').sort();
+  const layers = readStorage('layers').sort();
+  const shifts = readStorage('shifts');
+
+  // Setup a Redux store
+  const initial = {
+    mainTitle: 'L1NDA',
+    days: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+    startTimes,
+    endTimes,
+    employees,
+    layers,
+    shifts,
+  };
+
+  const reducer = (state, action) => {
+    if (!state) {
+      return initial;
+    }
+
+    // Local copy of the shifts from Redux state.
+    const shifts = state.shifts.slice(0);
+
+    switch (action.type) {
+      case 'UPDATE_MAIN_TITLE':
+        return Object.assign({}, state, {
+          mainTitle: action.mainTitle,
+        });
+      case 'ADD_SHIFT':
+        shifts.push(action.shift);
+        return Object.assign({}, state, { shifts });
+      case 'DELETE_ALL_SHIFTS':
+        return Object.assign({}, state, { shifts: [] });
+      case 'REMOVE_SHIFT':
+        const toDelete = state.shifts.filter(shift => shift.id === action.id)[0];
+        const index = state.shifts.indexOf(toDelete);
+        shifts.splice(index, 1)
+        return Object.assign({}, state, { shifts });
+      case 'ADD_START_TIME':
+        let startTimes = state.startTimes.slice(0);
+        startTimes.push(action.startTime);
+        // Remove duplicates and sort the result.
+        startTimes = Array.from(new Set(startTimes)).sort();
+        return Object.assign({}, state, { startTimes });
+      case 'ADD_END_TIME':
+        let endTimes = state.endTimes.slice(0);
+        endTimes.push(action.endTime);
+        endTimes = Array.from(new Set(endTimes)).sort();
+        return Object.assign({}, state, { endTimes });
+      case 'ADD_EMPLOYEE':
+        let employees = state.employees.slice(0);
+        employees.push(action.employee);
+        employees = Array.from(new Set(employees)).sort();
+        return Object.assign({}, state, { employees });
+      case 'ADD_LAYER':
+        let layers = state.layers.slice(0);
+        layers.push(action.layer);
+        layers = Array.from(new Set(layers)).sort();
+        return Object.assign({}, state, { layers });
+      default:
+        return state;
+    }
+  };
+
+  // If Redux DevTools extension is installed in browser, include it in Redux store.
+  const enhancer = Redux.compose(
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+  const store = Redux.createStore(reducer, initial, enhancer);
+
+  // Export the ReduxMixin
+  ReduxMixin = PolymerRedux(store);
+</script>

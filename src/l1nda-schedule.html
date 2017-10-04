@@ -41,20 +41,19 @@
       <template is="dom-if" if=[[!layers.length]]>
         <p class="error">No layer setup yet.</p>
       </template>
-      <template is="dom-if" if={{!shifts.length}}>
+      <template is="dom-if" if=[[!shifts.length]]>
         <p class="error">No shift setup yet.</p>
       </template>
 
       <h1>[[today]]</h1>
-      <template is="dom-if" if={{shifts.length}}>
-        <template is="dom-repeat" items="{{shifts}}">
+      <template is="dom-if" if=[[shifts.length]]>
+        <template is="dom-repeat" items="[[shifts]]">
           <l1nda-shift
             start=[[item.start]]
             end=[[item.end]]
             employee=[[item.employee]]
             layer=[[item.layer]]
             id=[[item.id]]
-            shifts={{shifts}}
           ></l1nda-shift>
         </template>
       </template>
@@ -66,8 +65,8 @@
               slot="dropdown-content"
               on-selected-changed="onSelectDropdown"
             >
-              <template is="dom-repeat" items={{startTimes}}>
-                <paper-item>{{item}}</paper-item>
+              <template is="dom-repeat" items=[[startTimes]]>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -80,7 +79,7 @@
               on-selected-changed="onSelectDropdown"
             >
               <template is="dom-repeat" items=[[endTimes]]>
-                <paper-item>{{item}}</paper-item>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -93,7 +92,7 @@
               on-selected-changed="onSelectDropdown"
             >
               <template is="dom-repeat" items=[[employees]]>
-                <paper-item>{{item}}</paper-item>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -106,7 +105,7 @@
               on-selected-changed="onSelectDropdown"
             >
               <template is="dom-repeat" items=[[layers]]>
-                <paper-item>{{item}}</paper-item>
+                <paper-item>[[item]]</paper-item>
               </template>
             </paper-listbox>
           </paper-dropdown-menu>
@@ -146,55 +145,24 @@
     // Return a global unique id.
     const guid = () => `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
 
-    class L1ndaSchedule extends Polymer.Element {
+    class L1ndaSchedule extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-schedule'; }
 
-      static get properties() {
-        return {
-          startTimes: {
-            type: Array,
-            notify: true,
-          },
-          endTimes: {
-            type: Array,
-            notify: true,
-          },
-          employees: {
-            type: Array,
-            notify: true,
-          },
-          layers: {
-            type: Array,
-            notify: true,
-          },
-        }
-      }
-
       addShift() {
-        // If using Ajax, set this.active = false; when the call starts in beforeSend.
-
-        const {
-          start,
-          end,
-          employee,
-          layer,
-        } = this.shift;
-
-        this.push('shifts', {
-          start,
-          end,
-          employee,
-          layer,
-          id: guid(),
+        const id = guid();
+        this.dispatch({
+          type: 'ADD_SHIFT',
+          shift: Object.assign({}, this.shift, { id }),
         });
 
-        localStorage['shifts'] = JSON.stringify(this.shifts);
-
-        // If using Ajax, set this.active = true; when the call is complete in finally.
+        localStorage['shifts'] = JSON.stringify(store.getState().shifts);
       }
 
       deleteAllShifts() {
-        this.shifts = [];
+        this.dispatch({
+          type: 'DELETE_ALL_SHIFTS',
+        });
+
         localStorage.removeItem('shifts');
       }
 
@@ -211,11 +179,10 @@
         this.active = true;
 
         this.shift = {};
-        this.shifts = localStorage['shifts'] && JSON.parse(localStorage['shifts'])
-          || [];
 
-        const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
-        this.today = days[new Date().getDay()];
+        const days = store.getState().days;
+        const dayIndex = new Date().getDay();
+        this.today = (days && days[dayIndex]) || `Day ${dayIndex + 1}`;
       }
     }
 

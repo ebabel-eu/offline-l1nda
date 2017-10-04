@@ -15,6 +15,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">\
 
 <link rel="import" href="l1nda-icons.html">
+<link rel="import" href="redux-mixin.html">
 
 <link rel="lazy-import" href="l1nda-schedule.html">
 <link rel="lazy-import" href="l1nda-setup.html">
@@ -66,10 +67,12 @@
 
     <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
     <app-route
-        route="{{route}}"
-        pattern="[[rootPath]]:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
+      route="{{route}}"
+      pattern="[[rootPath]]:page"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+    >
+    </app-route>
 
     <app-drawer-layout fullbleed narrow="{{narrow}}">
       <!-- Drawer content -->
@@ -86,7 +89,7 @@
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="l1nda-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>L1NDA</div>
+            <div main-title>[[mainTitle]]</div>
           </app-toolbar>
         </app-header>
 
@@ -98,18 +101,19 @@
         >
           <l1nda-schedule
             name="schedule"
-            start-times="{{startTimes}}"
-            end-times="{{endTimes}}"
-            employees="{{employees}}"
-            layers="{{layers}}"
+            start-times="[[startTimes]]"
+            end-times="[[endTimes]]"
+            employees="[[employees]]"
+            layers="[[layers]]"
+            shifts="[[shifts]]"
           >
           </l1nda-schedule>
           <l1nda-setup
             name="setup"
-            start-times="{{startTimes}}"
-            end-times="{{endTimes}}"
-            employees="{{employees}}"
-            layers="{{layers}}"
+            start-times="[[startTimes]]"
+            end-times="[[endTimes]]"
+            employees="[[employees]]"
+            layers="[[layers]]"
           >
           </l1nda-setup>
           <l1nda-error404 name="error404"></l1nda-error404>
@@ -119,7 +123,22 @@
   </template>
 
   <script>
-    class L1ndaApp extends Polymer.Element {
+    /**
+    * `<l1nda-app>` is the root element of the whole Offline L1nda app.
+    * Typical use is to place `<l1nda-app>` just after the opening `<body>` tag:
+    * ```
+    * <body>
+    *   <l1nda-app></l1nda-app>
+    *   <noscript>
+    *     Please enable JavaScript to view this website.
+    *   </noscript>
+    * </body>
+    * ```
+    * The custom element `<l1nda-app>` is bound to Redux. See https://tur-nr.github.io/polymer-redux/docs
+    *
+    * @demo https://offlinel1nda.firebaseapp.com/
+    */
+    class L1ndaApp extends ReduxMixin(Polymer.Element) {
       static get is() { return 'l1nda-app'; }
 
       static get properties() {
@@ -131,6 +150,42 @@
           },
           routeData: Object,
           subroute: String,
+
+          mainTitle: {
+            type: String,
+            statePath: 'mainTitle',
+          },
+          startTimes: {
+            type: Array,
+            statePath(state) {
+              return state.startTimes;
+            },
+          },
+          endTimes: {
+            type: Array,
+            statePath(state) {
+              return state.endTimes;
+            },
+          },
+          employees: {
+            type: Array,
+            statePath(state) {
+              return state.employees;
+            },
+          },
+          layers: {
+            type: Array,
+            statePath(state) {
+              return state.layers;
+            },
+          },
+          shifts: {
+            type: Array,
+            statePath(state) {
+              return state.shifts;
+            },
+          },
+
           // This shouldn't be neccessary, but the Analyzer isn't picking up
           // Polymer.Element#rootPath
           rootPath: String,
@@ -158,10 +213,11 @@
         // Load page import on demand. Show 404 page if fails
         var resolvedPageUrl = this.resolveUrl('l1nda-' + page + '.html');
         Polymer.importHref(
-            resolvedPageUrl,
-            null,
-            this._showPage404.bind(this),
-            true);
+          resolvedPageUrl,
+          null,
+          this._showPage404.bind(this),
+          true
+        );
       }
 
       _showPage404() {
@@ -171,17 +227,19 @@
       constructor() {
         super();
 
-        this.startTimes = localStorage['startTimes'] && JSON.parse(localStorage['startTimes']).sort()
-          || [];
+        const {
+          startTimes,
+          endTimes,
+          employees,
+          layers,
+          shifts,
+        } = store.getState();
 
-        this.endTimes = localStorage['endTimes'] && JSON.parse(localStorage['endTimes']).sort()
-          || [];
-
-        this.employees = localStorage['employees'] && JSON.parse(localStorage['employees']).sort()
-          || [];
-
-        this.layers = localStorage['layers'] && JSON.parse(localStorage['layers']).sort()
-          || [];
+        this.startTimes = startTimes;
+        this.endTimes = endTimes;
+        this.employees = employees;
+        this.layers = layers;
+        this.shifts = shifts;
       }
     }
 
