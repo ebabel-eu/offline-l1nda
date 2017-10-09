@@ -1,6 +1,6 @@
 {
   "name": "offline-l1nda",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "authors": [
     "The Polymer Authors",
     "Nadjib Amar"
@@ -22,7 +22,8 @@
     "paper-listbox": "2.0.0",
     "paper-item": "2.0.0",
     "web-animations-js": "2.3.1",
-    "polymer-redux": "1.0.3"
+    "polymer-redux": "1.0.3",
+    "platinum-sw": "2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#6.0.0",

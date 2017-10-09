@@ -65,61 +65,63 @@
       }
     </style>
 
-    <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
-    <app-route
-      route="{{route}}"
-      pattern="[[rootPath]]:page"
-      data="{{routeData}}"
-      tail="{{subroute}}"
-    >
-    </app-route>
+    <platinum-sw-register>
+      <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+      <app-route
+        route="{{route}}"
+        pattern="[[rootPath]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"
+      >
+      </app-route>
 
-    <app-drawer-layout fullbleed narrow="{{narrow}}">
-      <!-- Drawer content -->
-      <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="schedule" href="[[rootPath]]schedule">Schedule</a>
-          <a name="setup" href="[[rootPath]]setup">Setup</a>
-        </iron-selector>
-      </app-drawer>
+      <app-drawer-layout fullbleed narrow="{{narrow}}">
+        <!-- Drawer content -->
+        <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
+          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+            <a name="schedule" href="[[rootPath]]schedule">Schedule</a>
+            <a name="setup" href="[[rootPath]]setup">Setup</a>
+          </iron-selector>
+        </app-drawer>
 
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
+        <!-- Main content -->
+        <app-header-layout has-scrolling-region>
 
-        <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="l1nda-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>[[mainTitle]]</div>
-          </app-toolbar>
-        </app-header>
+          <app-header slot="header" condenses reveals effects="waterfall">
+            <app-toolbar>
+              <paper-icon-button icon="l1nda-icons:menu" drawer-toggle></paper-icon-button>
+              <div main-title>[[mainTitle]]</div>
+            </app-toolbar>
+          </app-header>
 
-        <iron-pages
-            selected="[[page]]"
-            attr-for-selected="name"
-            fallback-selection="error404"
-            role="main"
-        >
-          <l1nda-schedule
-            name="schedule"
-            start-times="[[startTimes]]"
-            end-times="[[endTimes]]"
-            employees="[[employees]]"
-            layers="[[layers]]"
-            shifts="[[shifts]]"
+          <iron-pages
+              selected="[[page]]"
+              attr-for-selected="name"
+              fallback-selection="error404"
+              role="main"
           >
-          </l1nda-schedule>
-          <l1nda-setup
-            name="setup"
-            start-times="[[startTimes]]"
-            end-times="[[endTimes]]"
-            employees="[[employees]]"
-            layers="[[layers]]"
-          >
-          </l1nda-setup>
-          <l1nda-error404 name="error404"></l1nda-error404>
-        </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
+            <l1nda-schedule
+              name="schedule"
+              start-times="[[startTimes]]"
+              end-times="[[endTimes]]"
+              employees="[[employees]]"
+              layers="[[layers]]"
+              shifts="[[shifts]]"
+            >
+            </l1nda-schedule>
+            <l1nda-setup
+              name="setup"
+              start-times="[[startTimes]]"
+              end-times="[[endTimes]]"
+              employees="[[employees]]"
+              layers="[[layers]]"
+            >
+            </l1nda-setup>
+            <l1nda-error404 name="error404"></l1nda-error404>
+          </iron-pages>
+        </app-header-layout>
+      </app-drawer-layout>
+    </platinum-sw-register>
   </template>
 
   <script>
